@@ -1,5 +1,13 @@
 language: node_js
 node_js:
-  - "node"
+  - 'node'
 cache:
   yarn: true
+before_deploy: yarn global add now
+deploy:
+  - provider: script
+    script: bash scripts/deploy_review_app.sh
+    skip_cleanup: true
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH != "master"
